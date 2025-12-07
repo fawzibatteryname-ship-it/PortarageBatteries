@@ -904,9 +904,9 @@
     </div>
     <div id="errorMessage" class="error-message"></div>
     <form id="loginForm" onsubmit="handleLogin(event)">
-     <div class="form-group"><label class="form-label">اسم الم��تخدم</label> <input type="text" id="username" class="form-input" placeholder="أدخل ��سم المستخدم" required>
+     <div class="form-group"><label class="form-label">اسم المستخدم</label> <input type="text" id="username" class="form-input" placeholder="أدخل اسم المستخدم" required>
      </div>
-     <div class="form-group"><label class="form-label">كلم�� المرور</label> <input type="password" id="password" class="form-input" placeholder="أدخل كلمة المرور" required>
+     <div class="form-group"><label class="form-label">كلمة المرور</label> <input type="password" id="password" class="form-input" placeholder="أدخل كلمة المرور" required>
      </div><button type="submit" class="btn-login">تسجيل الدخول</button>
     </form>
    </div>
@@ -929,10 +929,10 @@
     </div>
     <div id="sizeSearchSection" class="search-section active">
      <div class="search-title">
-      🔋 ابحث عن مقاس ��لبطارية
+      🔋 ابحث عن مقاس البطارية
      </div>
-     <div class="dropdown-group"><label class="dropdown-label">🔋 اختر أو اكتب مقاس ال��طارية</label>
-      <div class="dropdown-container"><input type="text" id="sizeInput" class="dropdown-input" placeholder="مثال: DA95, LN5, 70D23L..." autocomplete="off" oninput="filterDropdown('size')" onfocus="showDropdown('size')"> <span class="dropdown-arrow" id="sizeArrow">��</span>
+     <div class="dropdown-group"><label class="dropdown-label">🔋 اختر أو اكتب مقاس البطارية</label>
+      <div class="dropdown-container"><input type="text" id="sizeInput" class="dropdown-input" placeholder="مثال: DA95, LN5, 70D23L..." autocomplete="off" oninput="filterDropdown('size')" onfocus="showDropdown('size')"> <span class="dropdown-arrow" id="sizeArrow">▼</span>
        <div id="sizeList" class="dropdown-list"></div>
       </div>
      </div>
@@ -946,12 +946,12 @@
        <div id="makeList" class="dropdown-list"></div>
       </div>
      </div>
-     <div class="dropdown-group" id="modelGroup" style="display: none;"><label class="dropdown-label">🚙 اختر الم��ديل</label>
+     <div class="dropdown-group" id="modelGroup" style="display: none;"><label class="dropdown-label">🚙 اختر الموديل</label>
       <div class="dropdown-container"><input type="text" id="modelInput" class="dropdown-input" placeholder="اختر الموديل..." autocomplete="off" oninput="filterDropdown('model')" onfocus="showDropdown('model')"> <span class="dropdown-arrow" id="modelArrow">▼</span>
        <div id="modelList" class="dropdown-list"></div>
       </div>
      </div>
-     <div class="dropdown-group" id="yearGroup" style="display: none;"><label class="dropdown-label">📅 اخت�� السنة</label>
+     <div class="dropdown-group" id="yearGroup" style="display: none;"><label class="dropdown-label">📅 اختر السنة</label>
       <div class="dropdown-container"><input type="text" id="yearInput" class="dropdown-input" placeholder="اختر السنة..." autocomplete="off" oninput="filterDropdown('year')" onfocus="showDropdown('year')"> <span class="dropdown-arrow" id="yearArrow">▼</span>
        <div id="yearList" class="dropdown-list"></div>
       </div>
@@ -962,7 +962,7 @@
      <div class="dashboard-header">
       <div class="dashboard-title-row">
        <div class="dashboard-title" id="dashboardTitle">
-        🔋 ��وحة التحكم
+        🔋 لوحة التحكم
        </div><button class="btn-sheet" onclick="openGoogleSheet()"> 📊 فتح القوقل شيت </button>
       </div>
       <div class="stats-grid">
@@ -1018,8 +1018,8 @@
         ⚠️ البطاريات المنخفضة أو المنتهية
        </div>
        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <div class="filter-buttons"><button class="filter-btn active" onclick="filterLowStock('all')">الكل</button> <button class="filter-btn" onclick="filterLowStock('out')">منتهية فقط</button> <button class="filter-btn" onclick="filterLowStock('low')">����نخفضة فقط</button>
-        </div><button class="btn-export-excel" onclick="exportOutOfStockToExcel()"> 📥 تصدير البطاريات المنتهية (Excel) </button>
+        <div class="filter-buttons"><button class="filter-btn active" onclick="filterLowStock('all')">الكل</button> <button class="filter-btn" onclick="filterLowStock('out')">منتهية فقط</button> <button class="filter-btn" onclick="filterLowStock('low')">منخفضة فقط</button>
+        </div><button class="btn-export-excel" onclick="exportOutOfStockToExcel()"> 📥 تصدير Excel </button>
        </div>
       </div>
       <div style="overflow-x: auto;">
@@ -1029,7 +1029,7 @@
           <th>الماركة</th>
           <th>المقاس</th>
           <th>سعر الشراء</th>
-          <th>سعر ال��يع</th>
+          <th>سعر البيع</th>
           <th>المخزون الرئيسي</th>
           <th>مخزون السائقين</th>
           <th>الحالة</th>
@@ -1052,7 +1052,7 @@
   <script>
         const defaultConfig = {
             system_title: "⚡ سيستم البطاريات ⚡",
-            search_label: "🚗 ابحث عن بطا��ية سيارتك",
+            search_label: "🚗 ابحث عن بطارية سيارتك",
             dashboard_title: "🔋 لوحة التحكم"
         };
 
@@ -1079,7 +1079,7 @@
             Hamad: { password: 'portarage12', role: 'كول سنتر', isStaff: true },
             Fawzi: { password: 'portarage12', role: 'كول سنتر', isStaff: true },
             Mohamad: { password: 'portarage7896', role: 'المحاسب', isStaff: false },
-            Salem: { password: 'portarage7887', role: '��لمدير', isStaff: false }
+            Salem: { password: 'portarage7887', role: 'المدير', isStaff: false }
         };
 
         let currentUser = null;
@@ -1141,7 +1141,6 @@
                 document.getElementById('userBadge').textContent = `${currentUser.role}: ${username}`;
 
                 if (!currentUser.isStaff) {
-                    // للإدارة: إخفاء ��زرار التبديل + إظهار البحث بالمقاس في الأعلى + لوحة التحكم تحته
                     document.getElementById('searchModeSelector').style.display = 'none';
                     document.getElementById('sizeSearchSection').style.display = 'block';
                     document.getElementById('carSearchSection').style.display = 'none';
@@ -1149,7 +1148,6 @@
                     document.getElementById('sizeSearchSection').classList.add('active');
                     document.getElementById('carSearchSection').classList.remove('active');
                 } else {
-                    // للموظفين: إظهار أزرار التبديل + البحث بالمقاس + إخفاء لوح���� التحكم
                     document.getElementById('searchModeSelector').style.display = 'flex';
                     document.getElementById('sizeSearchSection').style.display = 'block';
                     document.getElementById('carSearchSection').style.display = 'none';
@@ -1157,14 +1155,13 @@
                     document.getElementById('sizeSearchSection').classList.add('active');
                     document.getElementById('carSearchSection').classList.remove('active');
                     
-                    // تفعيل زر البحث بالمقاس كخيار افتراضي
                     const sizeBtn = document.querySelector('.mode-btn[onclick*="size"]');
                     if (sizeBtn) sizeBtn.classList.add('active');
                 }
 
                 loadAllData();
             } else {
-                errorMsg.textContent = '❌ اسم المستخدم أو كلمة المرور غير صحيح��';
+                errorMsg.textContent = '❌ اسم المستخدم أو كلمة المرور غير صحيحة';
                 errorMsg.style.display = 'block';
                 setTimeout(() => {
                     errorMsg.style.display = 'none';
@@ -1217,7 +1214,7 @@
                     updateDashboard();
                 }
             } catch (error) {
-                console.error('خطأ في ت��ميل البيانات:', error);
+                console.error('خطأ في تحميل البيانات:', error);
             } finally {
                 document.getElementById('loading').style.display = 'none';
             }
@@ -1262,7 +1259,7 @@
                     'Irfan': 'عرفان',
                     'Albert': 'ألبرت',
                     'Lakshman': 'لاكشمان',
-                    'santheel': 'سان��يل',
+                    'santheel': 'سانتيل',
                     'ARVENTH': 'أرفنت',
                     'MortaDA/Santhosh': 'مرتضى / سانتوش',
                     'Mayura': 'مايورا',
@@ -1505,10 +1502,16 @@
             const timeStr = `${now.getHours()}-${now.getMinutes()}`;
             
             let csv = '\uFEFF';
-            csv += 'الماركة,المقاس\n';
+            csv += 'الماركة,المقاس,الحالة\n';
             
             filteredBatteries.forEach(battery => {
-                csv += `${battery.brand},${battery.size}\n`;
+                const warehouseTotal = battery.fkStock + battery.mStock;
+                const driversTotal = battery.drivers.reduce((sum, d) => sum + d.fk + d.m, 0);
+                const totalStock = warehouseTotal + driversTotal;
+                
+                const status = totalStock === 0 ? 'منتهية' : 'منخفضة';
+                
+                csv += `${battery.brand},${battery.size},${status}\n`;
             });
 
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -1526,7 +1529,7 @@
             successMessage.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; padding: 2rem 3rem; border-radius: 20px; z-index: 10000; text-align: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 10px 50px rgba(76, 175, 80, 0.5);';
             successMessage.innerHTML = `
                 <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
-                تم تصدير ${filteredBatteries.length} بطارية ${filterName} ب��جاح!
+                تم تصدير ${filteredBatteries.length} بطارية ${filterName} بنجاح!
             `;
             document.body.appendChild(successMessage);
             setTimeout(() => successMessage.remove(), 3000);
@@ -1704,6 +1707,10 @@
             }
             
             resultsDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
 
         function showBatteryResultsBySize(size) {
@@ -1741,6 +1748,10 @@
             }
             
             resultsDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
 
         function togglePricesForSingleSize(button, size) {
@@ -1751,6 +1762,10 @@
                 showPricesForSize(container, size);
                 container.style.display = 'block';
                 button.textContent = '❌ إخفاء الأسعار';
+                
+                setTimeout(() => {
+                    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
             } else {
                 container.style.display = 'none';
                 button.textContent = '💰 إظهار الأسعار';
@@ -1770,7 +1785,7 @@
             }
             
             headerRow += `
-                <th>س��ر البيع 💵</th>
+                <th>سعر البيع 💵</th>
                 <th>المخزون الرئيسي 📦</th>
                 <th>مخزون السائقين 🚚</th>`;
             
@@ -1871,16 +1886,16 @@
                 if (size === 'DA100' || size === '95AGM') {
                     message = `متوفرة بطارية موتر كرافت امريكيه 🇺🇸 كفالتها (سنتين) على الوكيل فورد الغانم سعرها ${salePrice} دك`;
                 } else {
-                    message = `متوفرة ب��ارية موتر كرافت امريكيه 🇺🇸 كفالتها 3 سن��ات على الوكيل فورد الغانم السعر مع رسوم التركيب ${salePrice} دك`;
+                    message = `متوفرة بطارية موتر كرافت امريكيه 🇺🇸 كفالتها 3 سنوات على الوكيل فورد الغانم السعر مع رسوم التركيب ${salePrice} دك`;
                 }
             } else if (brandUpper.includes('VARTA')) {
                 message = `متوفرة بطارية فارتا المانيه 🇩🇪 كفالتها سنه على الوكيل اف اتو انترنشلن السعر مع رسوم التركيب ${salePrice} دك`;
             } else if (brandUpper.includes('ABM')) {
                 message = `متوفرة بطارية ايه بي ام ماليزيه 🇲🇾 كفالتها سنه واحده على الوكيل اف كي السعر مع رسوم التركيب ${salePrice} دك`;
             } else if (brandUpper.includes('MOTO RAFT') || brandUpper.includes('MOTORAFT')) {
-                message = `متوفرة بطارية موتر ر����ت هنديه 🇮��� كفالتها سنه واحده عل�� الوكيل افتخار السعر مع رسوم التركيب ${salePrice} دك`;
+                message = `متوفرة بطارية موتر رافت هنديه 🇮🇳 كفالتها سنه واحده على الوكيل افتخار السعر مع رسوم التركيب ${salePrice} دك`;
             } else if (brandUpper.includes('BOSSTER') || brandUpper.includes('BOOSTER')) {
-                message = `متوفرة بطارية (بوستر/أوكل��) صينيه 🇨🇳 كفالتها سنه واحده على الوكيل المشعل السعر مع رسوم التركيب ${salePrice} دك`;
+                message = `متوفرة بطارية (بوستر/أوكلا) صينيه 🇨🇳 كفالتها سنه واحده على الوكيل المشعل السعر مع رسوم التركيب ${salePrice} دك`;
             } else {
                 message = `متوفرة بطارية ${brand} السعر مع رسوم التركيب ${salePrice} دك`;
             }
@@ -1889,7 +1904,7 @@
                 const btn = event.target.closest('.copy-btn');
                 const originalText = btn.innerHTML;
                 btn.classList.add('copied');
-                btn.innerHTML = '✓ تم النسخ';
+                btn.innerHTML = '✅ تم النسخ';
                 
                 setTimeout(() => {
                     btn.classList.remove('copied');
@@ -1979,7 +1994,7 @@
             if (!hasResults && searchText !== '') {
                 const noResults = document.createElement('div');
                 noResults.className = 'no-results';
-                noResults.textContent = '❌ لا توجد ��تائج مطابقة';
+                noResults.textContent = '❌ لا توجد نتائج مطابقة';
                 list.appendChild(noResults);
             }
             
@@ -2052,7 +2067,6 @@
                     document.getElementById('userBadge').textContent = `${currentUser.role}: ${currentUser.username}`;
                     
                     if (!currentUser.isStaff) {
-                        // للإدارة: إخفاء أ��رار التبديل + إظهار البحث بالمقاس في الأعلى + لوحة التحكم تحته
                         document.getElementById('searchModeSelector').style.display = 'none';
                         document.getElementById('sizeSearchSection').style.display = 'block';
                         document.getElementById('carSearchSection').style.display = 'none';
@@ -2060,7 +2074,6 @@
                         document.getElementById('sizeSearchSection').classList.add('active');
                         document.getElementById('carSearchSection').classList.remove('active');
                     } else {
-                        // للموظفين: إظهار أزرار التبديل + البحث بالمقاس + إخفاء لوحة التحكم
                         document.getElementById('searchModeSelector').style.display = 'flex';
                         document.getElementById('sizeSearchSection').style.display = 'block';
                         document.getElementById('carSearchSection').style.display = 'none';
@@ -2082,5 +2095,5 @@
             }
         });
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9aa67c78f5807cc9',t:'MTc2NTEzNjMzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9aa6888ca30e7cc9',t:'MTc2NTEzNjgzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

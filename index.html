@@ -21,7 +21,7 @@
 
             pointer-events: none;}
         body {
-            background: linear-gradient(-45deg, #ffffff, #000000, #ffffff, #000000);
+            background: linear-gradient(-45deg, #000000, #d4af37, #000000, #d4af37);
             background-size: 400% 400%;
             animation: gradientBG 10s ease infinite;
             margin: 0;
@@ -93,10 +93,6 @@
 
 <body>
 
-<div class="buttons" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-    <button onclick="showPage('page1')">Portarage Tires</button>
-</div>
-
 
 <div id="page1" class="content active">
     <!DOCTYPE html>
@@ -129,7 +125,7 @@
             }
             .sidebar {
                 position: absolute;
-                top: 25px;
+                top: 10px;
                 right: 25px;
                 background: rgba(255,255,255, 0.8);
                 padding: 10px;
@@ -145,16 +141,85 @@
                 color: white;}
             .sidebar {
                 position: absolute;
-                top: 25px;
+                top: 10px;
                 right: 25px;
-                background: rgb(0, 0, 0);
-                padding: 10px;
+                background: rgba(0, 0, 0, 0.85);
+                padding: 8px;
                 border-radius: 12px;
-                box-shadow: 0px 4px 15px rgb(255, 255, 255);
-                max-width: 200px;
-                width: 100%;
+                box-shadow: 0px 4px 15px rgba(0,0,0,0.6);
+                width: auto;
+                max-width: 280px;
                 text-align: right;
-                font-size: 18px;
+                font-size: 16px;
+                color: #fff;
+                border: 1px solid #d4af37;
+                max-height: none;
+                overflow: visible;
+            }
+            .sidebar div {
+                padding: 6px 4px;
+                color: #fff;
+                border-top: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+            .sidebar div:first-child {
+                border-top: none;
+            }
+            .sidebar div:last-child {
+                border-bottom: none;
+            }
+            .sidebar-left {
+                position: absolute;
+                top: 10px;
+                left: 25px;
+                background: rgba(0, 0, 0, 0.85);
+                padding: 8px;
+                border-radius: 12px;
+                box-shadow: 0px 4px 15px rgba(0,0,0,0.6);
+                width: 240px;
+                max-width: 260px;
+                text-align: right;
+                font-size: 16px;
+                color: #fff;
+                border: 1px solid #d4af37;
+                /* Remove internal scrollbar: use columns to fit all items */
+                max-height: none;
+                overflow: visible;
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+                column-count: 2;
+                -webkit-column-gap: 10px;
+                -moz-column-gap: 10px;
+                column-gap: 10px;
+            }
+
+            /* make items inside the left sidebar clear and readable with table borders */
+            .sidebar-left div {
+                text-align: right;
+                padding: 6px 4px;
+                color: #fff;
+                white-space: normal;
+                break-inside: avoid;
+                font-size: 16px;
+                line-height: 1.2;
+                border-top: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+            .sidebar-left div:first-child {
+                border-top: none;
+            }
+            .sidebar-left div:last-child {
+                border-bottom: none;
+            }
+            .sidebar-left div strong {
+                display: block;
+                color: #fff;
+                font-size: 15px;
+                margin-bottom: 6px;
+                font-weight: 700;
+            }
+            .sidebar-left div:not(:first-child) {
+                margin-top: 3px;
             }
             h1 {
                 font-size: 24px;
@@ -267,9 +332,97 @@
         });
     </script>
     <body>
-    <div class="sidebar">
+        <div class="sidebar">
 
-<br><br>
+    <div style="text-align:center;"><strong>اختصارات التواير</strong></div>
+    <div style="text-align:center;">بيريلي اوربي : PR</div>
+    <div style="text-align:center;">يوكوهاما ياباني : YK</div>
+    <div style="text-align:center;">يوكوهاما فلبيني : YF</div>
+    <div style="text-align:center;">يوكوهاما تايلندي : YT</div>
+    <div style="text-align:center;">دانلوب ياباني : DP</div>
+    <div style="text-align:center;">بيردجيستون ياباني : BG</div>
+    <div style="text-align:center;">بيردجيستون بولندي : BG2</div>
+    <div style="text-align:center;">كين فورست صيني : KF</div>
+    <div style="text-align:center;">بيرواي صيني : BW</div>
+    <div style="text-align:center;">رودتسون كوري : RD</div>
+    <div style="text-align:center;">فالكن ياباني : FK</div>
+    <div style="text-align:center;">نكسن كوري : NX</div>
+    <div style="text-align:center;">ميشلان فرنسي : MC</div>
+    <div style="text-align:center;">بي اف جودرتش : BF</div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const leftSidebar = document.querySelector('.sidebar-left');
+            const textareaElem = document.getElementById('message');
+
+            // right sidebar: insert abbreviations into textarea (existing behavior)
+            if (sidebar) {
+                const abbreviationDivs = sidebar.querySelectorAll('div[style*="text-align:center"]');
+                abbreviationDivs.forEach(div => {
+                    const text = div.textContent.trim();
+                    if (!text.includes('اختصارات التواير')) {
+                        div.style.cursor = 'pointer';
+                        div.style.padding = '5px';
+                        div.style.borderRadius = '4px';
+                        div.style.transition = 'background-color 0.2s';
+
+                        div.addEventListener('mouseenter', function() {
+                            this.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                        });
+
+                        div.addEventListener('mouseleave', function() {
+                            this.style.backgroundColor = 'transparent';
+                        });
+
+                        div.addEventListener('click', function() {
+                            const parts = text.split(' : ');
+                            if (parts.length === 2) {
+                                const code = parts[1];
+                                if (textareaElem.value && !textareaElem.value.endsWith('\n')) {
+                                    textareaElem.value += '\n' + code;
+                                } else {
+                                    textareaElem.value += code;
+                                }
+                                textareaElem.focus();
+                            }
+                        });
+                    }
+                });
+            }
+
+            // left sidebar: make increase items clickable and populate the `increase` input
+            if (leftSidebar) {
+                const leftDivs = leftSidebar.querySelectorAll('div[style*="text-align:center"]');
+                leftDivs.forEach(div => {
+                    const text = (div.textContent || '').trim();
+                    // ignore headings
+                    if (!text) return;
+                    div.style.cursor = 'pointer';
+                    div.style.padding = '5px';
+                    div.style.borderRadius = '4px';
+                    div.style.transition = 'background-color 0.15s';
+                    div.addEventListener('mouseenter', function() { this.style.backgroundColor = 'rgba(255,255,255,0.06)'; });
+                    div.addEventListener('mouseleave', function() { this.style.backgroundColor = 'transparent'; });
+
+                    div.addEventListener('click', function() {
+                        const incInput = document.getElementById('increase');
+                        if (!incInput) return;
+                        // try to extract a decimal or integer (e.g., 17, 17.5, 0.10)
+                        const match = text.match(/([0-9]+(?:\.[0-9]+)?)/);
+                        if (match) {
+                            incInput.value = match[1];
+                            incInput.focus();
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+
+    <div class="sidebar-left">
 
 <div style="text-align:center;"><strong>زيادات التواير</strong></div>
 
@@ -290,7 +443,7 @@
 
 <div style="text-align:center;">اوتو ون 13 د.ك</div>
 <div style="text-align:center; direction: rtl;">اف تي سي 15 د.ك</div>
-<div style="text-align:center;">برجستون: زيادة 21 د.ك</div>
+<div style="text-align:center;">برجستون: 21 د.ك</div>
 <div style="text-align:center;">بلاك ارو 13 د.ك</div>
 <div style="text-align:center;">دنيا الخير 15 د.ك</div>
 
@@ -302,9 +455,8 @@
 
 <br>
 
-<div style="text-align:center;">بهبهاني: المورد × 0.10</div>
+<div style="text-align:center;">بيريلي: المورد × 0.10</div>
 <div style="text-align:center;">ميشلان: المورد × 0.05</div>
-
 
 
 
@@ -422,7 +574,18 @@
                     line = translateWords(line);
                     const year = extractYear(line);
                     const price = extractPrice(line, year);
-                    let newPrice = price + increase;
+                    let newPrice;
+                    if (!isNaN(increase)) {
+                        if (increase > 0 && increase < 1) {
+                            // value like 0.5 means 50% -> subtract 50% of original
+                            newPrice = price - (price * increase);
+                        } else {
+                            // integer or >=1 treated as absolute increase
+                            newPrice = price + increase;
+                        }
+                    } else {
+                        newPrice = price;
+                    }
 
                     if (!isPriceYearFormat(line)) {
                         newPrice = parseFloat(newPrice.toFixed(2));

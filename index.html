@@ -463,21 +463,11 @@
 <br>
 
 <div style="text-align:center;">بيريلي: المورد × 0.10</div>
-<div style="text-align:center; margin-top:10px;">
-    <select id="michelin-year" style="padding:12px 16px;border:1px solid #ccc;border-radius:10px;font-size:16px;width:220px;">
-        <option value="2024">ميشلان 2024: المورد × 15+0.40</option>
-        <option value="2025">ميشلان 2025: المورد × 15+0.30</option>
-    </select>
+<div style="text-align:center;">
+<button onclick="selectMichelin(2024)">ميشلان 2024</button>
+<button onclick="selectMichelin(2025)">ميشلان 2025</button>
 </div>
-<div style="text-align:center; margin-top:10px;">
-    <input id="michelin-price" type="number" placeholder="اكتب سعر المورد هنا" style="padding:12px 16px;border:1px solid #ccc;border-radius:10px;font-size:16px;width:220px;">
-</div>
-<div style="text-align:center; margin-top:10px;">
-    <button id="michelin-calc" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
-        احسب ميشلان
-    </button>
-</div>
-<div id="michelin-result" style="text-align:center;color:#fff;font-weight:bold;margin-top:12px;"></div>
+
 
 
     </div>
@@ -509,9 +499,6 @@
         const resultBox = document.getElementById('result-box');
         const copyButton = document.getElementById('copy-button');
         const clearButton = document.getElementById('clear-button');
-        const michelinYearSelect = document.getElementById('michelin-year');
-        const michelinPriceInput = document.getElementById('michelin-price');
-        const michelinCalcButton = document.getElementById('michelin-calc');
 
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -525,10 +512,6 @@
                 e.preventDefault();
                 runCode();
             }
-        });
-
-        michelinCalcButton.addEventListener('click', () => {
-            applyMichelin();
         });
 
         copyButton.addEventListener('click', async () => {
@@ -592,44 +575,10 @@
             resultBox.innerText = modifiedMessage;
         }
 
-        function applyMichelin() {
-            const year = michelinYearSelect.value;
-            let supplierPrice = parseFloat(michelinPriceInput.value);
-            if (isNaN(supplierPrice)) {
-                supplierPrice = getSupplierPriceFromMessage();
-            }
-            if (isNaN(supplierPrice)) {
-                supplierPrice = promptSupplierPrice();
-                if (supplierPrice === null) return;
-            }
-
-            const discount = year === '2024' ? 0.40 : 0.30;
-            const afterDiscount = supplierPrice * (1 - discount);
-            const finalPrice = (afterDiscount + 15).toFixed(2);
-            const output = `ميشلان ${year}: بعد خصم ${Math.round(discount * 100)}٪ = ${afterDiscount.toFixed(2)} د.ك، ثم +15 د.ك = ${finalPrice} د.ك`;
-            resultBox.innerText = output;
-            document.getElementById('michelin-result').innerText = output;
-        }
-
-        function getSupplierPriceFromMessage() {
-            const text = messageInput.value;
-            if (!text) return NaN;
-            const matches = text.match(/(-?\d+(?:[\.,]\d+)?)/g);
-            if (!matches || !matches.length) return NaN;
-            const raw = matches[matches.length - 1].replace(',', '.');
-            const parsed = parseFloat(raw);
-            return isNaN(parsed) ? NaN : parsed;
-        }
-
-        function promptSupplierPrice() {
-            const answer = prompt('أدخل سعر المورد (د.ك)');
-            if (answer === null) return null;
-            const value = parseFloat(answer.replace(',', '.'));
-            if (isNaN(value)) {
-                alert('يرجى إدخال رقم صحيح للسعر.');
-                return promptSupplierPrice();
-            }
-            return value;
+        function selectMichelin(year) {
+            const textarea = document.getElementById('message');
+            textarea.value += `\nميشلان ${year} `;
+            textarea.focus();
         }
 
         function processMessage(message, increase) {
@@ -652,6 +601,14 @@
                         }
                     } else {
                         newPrice = price;
+                    }
+
+                    if (line.includes("ميشلان")) {
+                        if (year == "2024") {
+                            newPrice = price * 0.6 + 15;
+                        } else if (year == "2025") {
+                            newPrice = price * 0.7 + 15;
+                        }
                     }
 
                     if (!isPriceYearFormat(line)) {

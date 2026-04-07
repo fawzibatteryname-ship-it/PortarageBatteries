@@ -463,9 +463,9 @@
 <br>
 
 <div style="text-align:center;">بيريلي: المورد × 0.10</div>
-<div style="text-align:center; margin-top:10px; cursor:pointer;" onclick="applyMichelin('2024')">ميشلان 2024: المورد × 15+0.40</div>
-<div style="text-align:center; margin-top:10px; cursor:pointer;" onclick="applyMichelin('2025')">ميشلان 2025: المورد × 15+0.30</div>
-<div id="michelin-result" style="text-align:center;color:#fff;font-weight:bold;margin-top:12px;"></div>
+<div style="text-align:center;" onclick="openMichelinModal(2024)">ميشلان 2024</div>
+<div style="text-align:center;" onclick="openMichelinModal(2025)">ميشلان 2025</div>
+
 
 
     </div>
@@ -479,10 +479,11 @@
 
 
 
-        <input id="increase" type="number" placeholder="قم بإدخال الفائدة">
+        <input id="increase" type="text" placeholder="قم بإدخال الفائدة">
         <div id="result-box"></div>
         <button id="copy-button"><i class="fas fa-copy button-icon"></i>نسخ</button>
         <button id="clear-button"><i class="fas fa-times button-icon"></i>مسح</button>
+    </div>
     </div>
     <script>
         window.onload = () => {
@@ -497,6 +498,10 @@
         const resultBox = document.getElementById('result-box');
         const copyButton = document.getElementById('copy-button');
         const clearButton = document.getElementById('clear-button');
+
+        let michelinDiscount = 0;
+        let michelinAdd = 0;
+        let michelinYear = '';
 
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -562,6 +567,9 @@
             messageInput.value = '';
             increaseInput.value = '';
             resultBox.innerText = '';
+            michelinYear = '';
+            michelinDiscount = 0;
+            michelinAdd = 0;
             animateButton(clearButton);
         });
 
@@ -571,6 +579,20 @@
             const increase = parseFloat(increaseInput.value);
             const modifiedMessage = processMessage(message, increase);
             resultBox.innerText = modifiedMessage;
+        }
+
+        function openMichelinModal(year) {
+            michelinYear = year;
+            if (year == 2024) {
+                michelinDiscount = 40;
+                michelinAdd = 15;
+                increaseInput.value = "خصم 40% + إضافة 15 د.ك";
+            } else if (year == 2025) {
+                michelinDiscount = 30;
+                michelinAdd = 15;
+                increaseInput.value = "خصم 30% + إضافة 15 د.ك";
+            }
+            increaseInput.focus();
         }
 
         function processMessage(message, increase) {
@@ -595,6 +617,10 @@
                         newPrice = price;
                     }
 
+                    if (michelinYear) {
+                        newPrice = price * (1 - michelinDiscount / 100) + michelinAdd;
+                    }
+
                     if (!isPriceYearFormat(line)) {
                         newPrice = parseFloat(newPrice.toFixed(2));
                     }
@@ -617,7 +643,15 @@
 
                     return updatedLine;
                 }).join('\n');
+
+            if (michelinYear) {
+                modifiedMessage += `\nخصم ميشلان ${michelinYear} مطبق`;
+            }
+
+            return modifiedMessage;
         }
+
+            return modifiedMessage;
 
         function isTireSize(line) {
             const tireSizePattern = /\b\d{3}\/\d{2}R\d{2}\b/;

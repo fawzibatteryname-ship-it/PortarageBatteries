@@ -483,17 +483,7 @@
         <div id="result-box"></div>
         <button id="copy-button"><i class="fas fa-copy button-icon"></i>نسخ</button>
         <button id="clear-button"><i class="fas fa-times button-icon"></i>مسح</button>
-        <div id="michelin-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:1000;">
-            <h3>إدخال تفاصيل ميشلان <span id="modal-year"></span></h3>
-            <label>نسبة الخصم (%):</label>
-            <input type="number" id="discount-input" value="40" min="0" max="100">
-            <br>
-            <label>إضافة (د.ك):</label>
-            <input type="number" id="add-input" value="15" min="0">
-            <br>
-            <button id="apply-michelin">تطبيق</button>
-            <button id="cancel-michelin">إلغاء</button>
-        </div>
+    </div>
     </div>
     <script>
         window.onload = () => {
@@ -513,18 +503,12 @@
         let michelinAdd = 0;
         let michelinYear = '';
 
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                runCode();
-            }
+        messageInput.addEventListener('input', () => {
+            runCode();
         });
 
-        increaseInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                runCode();
-            }
+        increaseInput.addEventListener('input', () => {
+            runCode();
         });
 
         copyButton.addEventListener('click', async () => {
@@ -590,29 +574,18 @@
 
         function openMichelinModal(year) {
             michelinYear = year;
-            document.getElementById('modal-year').textContent = year;
             if (year == 2024) {
-                document.getElementById('discount-input').value = 40;
-                document.getElementById('add-input').value = 15;
+                michelinDiscount = 40;
+                michelinAdd = 15;
             } else if (year == 2025) {
-                document.getElementById('discount-input').value = 30;
-                document.getElementById('add-input').value = 15;
+                michelinDiscount = 30;
+                michelinAdd = 15;
             }
-            document.getElementById('michelin-modal').style.display = 'block';
-        }
-
-        document.getElementById('apply-michelin').addEventListener('click', () => {
-            michelinDiscount = parseFloat(document.getElementById('discount-input').value);
-            michelinAdd = parseFloat(document.getElementById('add-input').value);
-            document.getElementById('michelin-modal').style.display = 'none';
             const textarea = document.getElementById('message');
-            textarea.value += `\nميشلان ${michelinYear} `;
+            textarea.value += `\nميشلان ${year} `;
             textarea.focus();
-        });
-
-        document.getElementById('cancel-michelin').addEventListener('click', () => {
-            document.getElementById('michelin-modal').style.display = 'none';
-        });
+            runCode(); // تطبيق مباشر
+        }
 
         function processMessage(message, increase) {
             const lines = message.split('\n');

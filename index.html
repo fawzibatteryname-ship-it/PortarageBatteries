@@ -463,8 +463,17 @@
 <br>
 
 <div style="text-align:center;">بيريلي: المورد × 0.10</div>
-<div style="text-align:center;">ميشلان 2024: المورد × 15+0.40</div>
-
+<div style="text-align:center; margin-top:10px;">
+    <button onclick="applyMichelin('2024')" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
+        ميشلان 2024: المورد × 15+0.40
+    </button>
+</div>
+<div style="text-align:center; margin-top:10px;">
+    <button onclick="applyMichelin('2025')" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
+        ميشلان 2025: المورد × 15+0.30
+    </button>
+</div>
+<div id="michelin-result" style="text-align:center;color:#fff;font-weight:bold;margin-top:12px;"></div>
 
 
     </div>
@@ -570,6 +579,42 @@
             const increase = parseFloat(increaseInput.value);
             const modifiedMessage = processMessage(message, increase);
             resultBox.innerText = modifiedMessage;
+        }
+
+        function applyMichelin(year) {
+            let supplierPrice = getSupplierPriceFromMessage();
+            if (isNaN(supplierPrice)) {
+                supplierPrice = promptSupplierPrice();
+                if (supplierPrice === null) return;
+            }
+
+            const discount = year === '2024' ? 0.40 : 0.30;
+            const afterDiscount = supplierPrice * (1 - discount);
+            const finalPrice = (afterDiscount + 15).toFixed(2);
+            const output = `ميشلان ${year}: بعد خصم ${Math.round(discount * 100)}٪ = ${afterDiscount.toFixed(2)} د.ك، ثم +15 د.ك = ${finalPrice} د.ك`;
+            resultBox.innerText = output;
+            document.getElementById('michelin-result').innerText = output;
+        }
+
+        function getSupplierPriceFromMessage() {
+            const text = messageInput.value;
+            if (!text) return NaN;
+            const matches = text.match(/(-?\d+(?:[\.,]\d+)?)/g);
+            if (!matches || !matches.length) return NaN;
+            const raw = matches[matches.length - 1].replace(',', '.');
+            const parsed = parseFloat(raw);
+            return isNaN(parsed) ? NaN : parsed;
+        }
+
+        function promptSupplierPrice() {
+            const answer = prompt('أدخل سعر المورد (د.ك)');
+            if (answer === null) return null;
+            const value = parseFloat(answer.replace(',', '.'));
+            if (isNaN(value)) {
+                alert('يرجى إدخال رقم صحيح للسعر.');
+                return promptSupplierPrice();
+            }
+            return value;
         }
 
         function processMessage(message, increase) {
@@ -4243,5 +4288,3 @@
         </p>
     </div>
 </div>
-
-

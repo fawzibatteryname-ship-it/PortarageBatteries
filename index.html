@@ -300,37 +300,6 @@
             }
         </style>
     </head>
-    <script>
-        const textarea = document.getElementById("message");
-
-        textarea.addEventListener("keydown", function(e) {
-            if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-
-                const lines = this.value.trim().split('\n');
-                const lastLine = lines[lines.length - 1];
-
-                if (lastLine.startsWith("الفايدة")) {
-                    const increase = parseFloat(lastLine.replace(/[^0-9.]/g, '')) || 0;
-                    const newLines = [];
-
-                    for (let i = 0; i < lines.length - 1; i++) {
-                        const line = lines[i];
-                        const match = line.match(/(\d+(\.\d+)?)\s*د\.?ك/);
-                        if (match) {
-                            const original = parseFloat(match[1]);
-                            const newPrice = (original + increase).toFixed(3);
-                            newLines.push(`${line}\nالسعر بعد الزيادة: ${newPrice} د.ك`);
-                        } else {
-                            newLines.push(line);
-                        }
-                    }
-
-                    this.value = newLines.join('\n');
-                }
-            }
-        });
-    </script>
     <body>
         <div class="sidebar">
 
@@ -479,7 +448,7 @@
 
 
 
-        <input id="increase" type="number" placeholder="قم بإدخال الفائدة">
+        <input id="increase" type="text" placeholder="قم بإدخال الفائدة">
         <div id="result-box"></div>
         <button id="copy-button"><i class="fas fa-copy button-icon"></i>نسخ</button>
         <button id="clear-button"><i class="fas fa-times button-icon"></i>مسح</button>
@@ -503,12 +472,18 @@
         let michelinAdd = 0;
         let michelinYear = '';
 
-        messageInput.addEventListener('input', () => {
-            runCode();
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                runCode();
+            }
         });
 
-        increaseInput.addEventListener('input', () => {
-            runCode();
+        increaseInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                runCode();
+            }
         });
 
         copyButton.addEventListener('click', async () => {
@@ -561,6 +536,9 @@
             messageInput.value = '';
             increaseInput.value = '';
             resultBox.innerText = '';
+            michelinYear = '';
+            michelinDiscount = 0;
+            michelinAdd = 0;
             animateButton(clearButton);
         });
 
@@ -577,14 +555,13 @@
             if (year == 2024) {
                 michelinDiscount = 40;
                 michelinAdd = 15;
+                increaseInput.value = "خصم 40% + إضافة 15 د.ك";
             } else if (year == 2025) {
                 michelinDiscount = 30;
                 michelinAdd = 15;
+                increaseInput.value = "خصم 30% + إضافة 15 د.ك";
             }
-            const textarea = document.getElementById('message');
-            textarea.value += `\nميشلان ${year} `;
-            textarea.focus();
-            runCode(); // تطبيق مباشر
+            increaseInput.focus();
         }
 
         function processMessage(message, increase) {
@@ -609,7 +586,7 @@
                         newPrice = price;
                     }
 
-                    if (line.includes("ميشلان") && year == michelinYear) {
+                    if (michelinYear) {
                         newPrice = price * (1 - michelinDiscount / 100) + michelinAdd;
                     }
 
@@ -635,7 +612,15 @@
 
                     return updatedLine;
                 }).join('\n');
+
+            if (michelinYear) {
+                modifiedMessage += `\nخصم ميشلان ${michelinYear} مطبق`;
+            }
+
+            return modifiedMessage;
         }
+
+            return modifiedMessage;
 
         function isTireSize(line) {
             const tireSizePattern = /\b\d{3}\/\d{2}R\d{2}\b/;

@@ -464,13 +464,17 @@
 
 <div style="text-align:center;">بيريلي: المورد × 0.10</div>
 <div style="text-align:center; margin-top:10px;">
-    <button onclick="applyMichelin('2024')" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
-        ميشلان 2024: المورد × 15+0.40
-    </button>
+    <select id="michelin-year" style="padding:12px 16px;border:1px solid #ccc;border-radius:10px;font-size:16px;width:220px;">
+        <option value="2024">ميشلان 2024: المورد × 15+0.40</option>
+        <option value="2025">ميشلان 2025: المورد × 15+0.30</option>
+    </select>
 </div>
 <div style="text-align:center; margin-top:10px;">
-    <button onclick="applyMichelin('2025')" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
-        ميشلان 2025: المورد × 15+0.30
+    <input id="michelin-price" type="number" placeholder="اكتب سعر المورد هنا" style="padding:12px 16px;border:1px solid #ccc;border-radius:10px;font-size:16px;width:220px;">
+</div>
+<div style="text-align:center; margin-top:10px;">
+    <button id="michelin-calc" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
+        احسب ميشلان
     </button>
 </div>
 <div id="michelin-result" style="text-align:center;color:#fff;font-weight:bold;margin-top:12px;"></div>
@@ -505,6 +509,9 @@
         const resultBox = document.getElementById('result-box');
         const copyButton = document.getElementById('copy-button');
         const clearButton = document.getElementById('clear-button');
+        const michelinYearSelect = document.getElementById('michelin-year');
+        const michelinPriceInput = document.getElementById('michelin-price');
+        const michelinCalcButton = document.getElementById('michelin-calc');
 
         messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -518,6 +525,10 @@
                 e.preventDefault();
                 runCode();
             }
+        });
+
+        michelinCalcButton.addEventListener('click', () => {
+            applyMichelin();
         });
 
         copyButton.addEventListener('click', async () => {
@@ -581,8 +592,12 @@
             resultBox.innerText = modifiedMessage;
         }
 
-        function applyMichelin(year) {
-            let supplierPrice = getSupplierPriceFromMessage();
+        function applyMichelin() {
+            const year = michelinYearSelect.value;
+            let supplierPrice = parseFloat(michelinPriceInput.value);
+            if (isNaN(supplierPrice)) {
+                supplierPrice = getSupplierPriceFromMessage();
+            }
             if (isNaN(supplierPrice)) {
                 supplierPrice = promptSupplierPrice();
                 if (supplierPrice === null) return;

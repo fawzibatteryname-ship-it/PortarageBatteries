@@ -463,9 +463,17 @@
 <br>
 
 <div style="text-align:center;">بيريلي: المورد × 0.10</div>
-<div style="text-align:center;" onclick="openMichelinModal(2024)">ميشلان 2024</div>
-<div style="text-align:center;" onclick="openMichelinModal(2025)">ميشلان 2025</div>
-
+<div style="text-align:center; margin-top:10px;">
+    <button onclick="applyMichelin('2024')" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
+        ميشلان 2024: المورد × 15+0.40
+    </button>
+</div>
+<div style="text-align:center; margin-top:10px;">
+    <button onclick="applyMichelin('2025')" style="padding:12px 16px;border:none;border-radius:10px;background:#0057b8;color:#fff;cursor:pointer;font-size:16px;">
+        ميشلان 2025: المورد × 15+0.30
+    </button>
+</div>
+<div id="michelin-result" style="text-align:center;color:#fff;font-weight:bold;margin-top:12px;"></div>
 
 
     </div>
@@ -484,7 +492,6 @@
         <button id="copy-button"><i class="fas fa-copy button-icon"></i>نسخ</button>
         <button id="clear-button"><i class="fas fa-times button-icon"></i>مسح</button>
     </div>
-    </div>
     <script>
         window.onload = () => {
             const welcomeMessage = document.getElementById('welcome-message');
@@ -499,16 +506,18 @@
         const copyButton = document.getElementById('copy-button');
         const clearButton = document.getElementById('clear-button');
 
-        let michelinDiscount = 0;
-        let michelinAdd = 0;
-        let michelinYear = '';
-
-        messageInput.addEventListener('input', () => {
-            runCode();
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                runCode();
+            }
         });
 
-        increaseInput.addEventListener('input', () => {
-            runCode();
+        increaseInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                runCode();
+            }
         });
 
         copyButton.addEventListener('click', async () => {
@@ -572,21 +581,6 @@
             resultBox.innerText = modifiedMessage;
         }
 
-        function openMichelinModal(year) {
-            michelinYear = year;
-            if (year == 2024) {
-                michelinDiscount = 40;
-                michelinAdd = 15;
-            } else if (year == 2025) {
-                michelinDiscount = 30;
-                michelinAdd = 15;
-            }
-            const textarea = document.getElementById('message');
-            textarea.value += `\nميشلان ${year} `;
-            textarea.focus();
-            runCode(); // تطبيق مباشر
-        }
-
         function processMessage(message, increase) {
             const lines = message.split('\n');
             return lines
@@ -607,10 +601,6 @@
                         }
                     } else {
                         newPrice = price;
-                    }
-
-                    if (line.includes("ميشلان") && year == michelinYear) {
-                        newPrice = price * (1 - michelinDiscount / 100) + michelinAdd;
                     }
 
                     if (!isPriceYearFormat(line)) {
